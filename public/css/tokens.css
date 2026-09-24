@@ -1,0 +1,96 @@
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — EduContext
+   Concepto: "Escritorio con camino" (Fase 4)
+   Mismos nombres de variable que el CSS original para
+   minimizar cambios en el resto de las hojas de estilo;
+   los VALORES sí cambian a la nueva identidad visual.
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  /* Fondo y superficies */
+  --bg:        #F5F3EF;
+  --bg2:       #EDEAE3;
+  --bg3:       #E4E0D6;
+  --surface:   #FFFFFF;
+  --surface2:  #FBFAF7;
+
+  /* Bordes */
+  --border:    #DEDAD1;
+  --border2:   rgba(31,95,112,.28);
+
+  /* Color primario: azul petróleo (antes "cyan", mismo nombre de variable) */
+  --cyan:      #1F5F70;
+  --cyan2:     #163F4B;
+  --cyan-dim:  rgba(31,95,112,.10);
+  --cyan-glow: rgba(31,95,112,.15);
+
+  /* Texto */
+  --text:      #1F1E1A;
+  --text2:     #6B6960;
+  --text3:     #8C8A80;
+
+  /* Acentos */
+  --accent:    #E0A458;   /* "camino" / progreso — uso exclusivo en el componente Camino */
+  --green:     #1F5F70;   /* éxito, alias del primario */
+  --amber:     #E0A458;   /* alias de --accent, para compatibilidad con el CSS existente */
+  --rose:      #E27D60;   /* atención / error */
+
+  /* Radios */
+  --r:  .75rem;
+  --r2: 1.25rem;
+  --r3: 2rem;
+
+  /* Gradientes por categoría — uso exclusivo en .categoria-card,
+     inspirados en la referencia visual tipo dashboard de producto.
+     No se usan en botones, nav ni otros componentes. */
+  --grad-oficios:        linear-gradient(135deg, #F0A93A, #D9702E);
+  --grad-profesiones:    linear-gradient(135deg, #3A9B9B, #1F5F70);
+  --grad-emprendimiento: linear-gradient(135deg, #E85C8A, #C23E6B);
+  --grad-estudiantes:    linear-gradient(135deg, #8B6FD6, #5B45A8);
+  --grad-tecnologia:     linear-gradient(135deg, #4E9161, #2F5233);
+  --grad-vida:           linear-gradient(135deg, #E2825C, #B8532F);
+}
+
+/* Modo oscuro real (no solo un dark genérico) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #20201C;
+    --bg2:       #29281F;
+    --bg3:       #322F24;
+    --surface:   #2C2B24;
+    --surface2:  #33322A;
+    --border:    #3A3930;
+    --border2:   rgba(79,163,184,.30);
+    --cyan:      #4FA3B8;
+    --cyan2:     #3D8598;
+    --cyan-dim:  rgba(79,163,184,.14);
+    --cyan-glow: rgba(79,163,184,.18);
+    --text:      #F0EDE5;
+    --text2:     #A6A398;
+    --text3:     #86847A;
+    --accent:    #E8B872;
+    --green:     #4FA3B8;
+    --amber:     #E8B872;
+    --rose:      #E89680;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:        #20201C;
+  --bg2:       #29281F;
+  --bg3:       #322F24;
+  --surface:   #2C2B24;
+  --surface2:  #33322A;
+  --border:    #3A3930;
+  --border2:   rgba(79,163,184,.30);
+  --cyan:      #4FA3B8;
+  --cyan2:     #3D8598;
+  --cyan-dim:  rgba(79,163,184,.14);
+  --cyan-glow: rgba(79,163,184,.18);
+  --text:      #F0EDE5;
+  --text2:     #A6A398;
+  --text3:     #86847A;
+  --accent:    #E8B872;
+  --green:     #4FA3B8;
+  --amber:     #E8B872;
+  --rose:      #E89680;
+}

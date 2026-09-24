@@ -1,0 +1,450 @@
+---
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+// EduContext — página principal
+// Migrado desde index.html estático (sub-entrega Webflow Cloud).
+// El contenido interactivo sigue siendo el mismo JS vanilla que ya
+// funcionaba; Astro solo se encarga del layout/servido y, a partir
+// de acá, del backend (rutas /api) para la IA conversacional.
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduContext — Aprendizaje adaptado a tu mundo</title>
+  <meta name="description" content="Plataforma educativa con herramientas de IA adaptadas a tu profesión, tu vida y tu mundo real. Más de 34 perfiles gratuitos.">
+  <meta property="og:title" content="EduContext — Aprendizaje adaptado a tu mundo">
+  <meta property="og:description" content="Herramientas de IA, prompts listos para usar y recursos educativos adaptados a tu profesión. Completamente gratis.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href={`${BASE}/css/tokens.css`}>
+  <link rel="stylesheet" href={`${BASE}/css/base.css`}>
+  <link rel="stylesheet" href={`${BASE}/css/components.css`}>
+  <link rel="stylesheet" href={`${BASE}/css/camino.css`}>
+  <link rel="stylesheet" href={`${BASE}/css/views.css`}>
+</head>
+<body>
+
+
+<!-- ═══ SIDEBAR PERSISTENTE (desktop) ═══════════════════════ -->
+<aside class="app-sidebar" aria-label="Navegación principal">
+  <div class="app-sidebar-brand" data-action="show-landing">
+    <span class="app-sidebar-logo">🎓</span>
+    <span class="app-sidebar-brand-text">EduContext</span>
+  </div>
+  <nav class="app-sidebar-nav">
+    <a href="#" class="app-sidebar-item" data-action="show-landing"><span class="asi-icon">🏠</span><span>Inicio</span></a>
+    <a href="#" class="app-sidebar-item" data-action="show-profiles"><span class="asi-icon">🔍</span><span>Explorar perfiles</span></a>
+    <a href="#" class="app-sidebar-item" data-action="nav-close-and-scroll" data-target="ia-section"><span class="asi-icon">🤖</span><span>Empezar con IA</span></a>
+    <a href="#" class="app-sidebar-item" data-action="nav-close-and-scroll" data-target="categorias-section"><span class="asi-icon">📂</span><span>Categorías</span></a>
+    <a href="#" class="app-sidebar-item" data-action="nav-close-and-scroll" data-target="sobre-section"><span class="asi-icon">ℹ️</span><span>Sobre EduContext</span></a>
+  </nav>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXTHajgp5SBA2nBEB9XsKcWV3fCvSxNCbvtkpeQhLTg5xMAg/viewform" target="_blank" rel="noopener" class="app-sidebar-item app-sidebar-suggest"><span class="asi-icon">💬</span><span>Sugerí un perfil</span></a>
+</aside>
+
+<!-- ═══ MENÚ HAMBURGUESA (mobile) ════════════════════════════════════ -->
+<!-- MENÚ DESPLEGABLE -->
+<div id="nav-dropdown" role="menu" aria-label="Menú principal">
+  <nav class="nav-dropdown-list">
+    <a href="#" class="nav-dropdown-item" role="menuitem" data-action="nav-close-and-show" data-target="landing">🏠 Inicio</a>
+    <a href="#" class="nav-dropdown-item" role="menuitem" data-action="nav-close-and-scroll" data-target="ia-section">🤖 Empezar con IA</a>
+    <a href="#" class="nav-dropdown-item" role="menuitem" data-action="nav-close-and-scroll" data-target="categorias-section">📂 Categorías</a>
+    <a href="#" class="nav-dropdown-item" role="menuitem" data-action="nav-close-and-show" data-target="profiles">🔍 Explorar perfiles</a>
+    <a href="#" class="nav-dropdown-item" role="menuitem" data-action="nav-close-and-scroll" data-target="participar-section">💬 Participar</a>
+    <a href="#" class="nav-dropdown-item" role="menuitem" data-action="nav-close-and-scroll" data-target="sobre-section">ℹ️ Sobre EduContext</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXTHajgp5SBA2nBEB9XsKcWV3fCvSxNCbvtkpeQhLTg5xMAg/viewform" target="_blank" rel="noopener" class="nav-dropdown-item suggest" role="menuitem" data-action="nav-close">💬 Sugerí un perfil</a>
+  </nav>
+</div>
+
+<!-- ═══ LANDING ════════════════════════════════════════════ -->
+<div id="landing" class="view active">
+
+  <!-- Navbar -->
+  <nav class="nav">
+    <button class="hamburger-btn" data-action="toggle-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-dropdown">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-logo">EduContext</div>
+    <button class="nav-cta" data-action="show-profiles">Comenzar gratis →</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">✦ Plataforma educativa contextual · v3.0</div>
+    <h1>Aprende con <span>EduContext</span></h1>
+    <p class="hero-sub">Inteligencia artificial y herramientas digitales adaptadas a tu profesión, tu vida y tu mundo real.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" data-action="show-profiles">Elegir mi perfil →</button>
+      <button class="btn-secondary" data-action="scroll-to" data-target="ia-section">Empezar con IA</button>
+    </div>
+  </section>
+
+  <!-- Estadísticas -->
+  <div class="stats">
+    <div class="stat"><div class="stat-n">34+</div><div class="stat-l">Perfiles disponibles</div></div>
+    <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Herramientas IA</div></div>
+    <div class="stat"><div class="stat-n">300+</div><div class="stat-l">Prompts listos</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Gratuito</div></div>
+  </div>
+
+  <!-- Características -->
+  <div id="features-section" class="section">
+    <div class="section-label">¿Por qué EduContext?</div>
+    <h2 class="section-title">Aprendizaje que se adapta<br>a <em>tu</em> contexto</h2>
+    <p class="section-sub">No más cursos genéricos. Cada contenido está pensado para tu profesión, tu industria y tu nivel.</p>
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon">🎯</div><h3>Contenido contextualizado</h3><p>Cada perfil tiene herramientas, prompts y recursos específicos para su área. Sin relleno ni teoría vacía.</p></div>
+      <div class="feat-card"><div class="feat-icon">⚡</div><h3>Prompts listos para usar</h3><p>Copia y pega prompts optimizados para ChatGPT, Claude y otras IAs directamente aplicados a tu trabajo.</p></div>
+      <div class="feat-card"><div class="feat-icon">🛠️</div><h3>Herramientas reales</h3><p>Descubre qué IA usar, para qué sirve exactamente y cómo integrarla en tu día a día profesional.</p></div>
+      <div class="feat-card"><div class="feat-icon">📚</div><h3>Recursos educativos</h3><p>Cursos, comunidades, canales y plataformas seleccionadas para tu área. Nada genérico.</p></div>
+      <div class="feat-card"><div class="feat-icon">🔄</div><h3>Aplicaciones reales</h3><p>Ejemplos concretos de cómo personas reales usan estas herramientas en su trabajo cotidiano.</p></div>
+      <div class="feat-card"><div class="feat-icon">🌐</div><h3>Para cualquier perfil</h3><p>Desde plomeros hasta científicos de datos. La IA es para todos y EduContext lo demuestra.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ EMPEZAR CON IA ══════════════════════════════════ -->
+  <div id="ia-section" class="section ia-section">
+    <div class="section-label">Introducción</div>
+    <h2 class="section-title">Empezar con IA</h2>
+    <p class="section-sub">Una guía simple y amigable para entender la inteligencia artificial desde cero. Sin tecnicismos, sin complicaciones.</p>
+
+    <div class="modulos-grid">
+
+      <div class="modulo-card">
+        <div class="modulo-num">01</div>
+        <div class="modulo-icon">🤖</div>
+        <h3>¿Qué es la Inteligencia Artificial?</h3>
+        <p>La IA es tecnología que permite a las computadoras aprender, razonar y tomar decisiones de forma similar a como lo hacemos las personas. No es magia ni ciencia ficción: es una herramienta que ya usás todos los días sin darte cuenta, en el celular, en Netflix o en Google Maps.</p>
+        <div class="modulo-ejemplo">
+          <span class="modulo-ejemplo-label">Ejemplo cotidiano</span>
+          Cuando Spotify te recomienda una canción que te encanta, eso es inteligencia artificial analizando tus gustos.
+        </div>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">02</div>
+        <div class="modulo-icon">📖</div>
+        <h3>Conceptos Básicos</h3>
+        <p>Tres palabras que vas a escuchar siempre:</p>
+        <ul class="modulo-lista">
+          <li><strong>Algoritmo</strong> — Una serie de instrucciones que la computadora sigue para resolver un problema. Como una receta de cocina.</li>
+          <li><strong>Datos</strong> — La información con la que aprende la IA. Cuantos más datos, más inteligente se vuelve.</li>
+          <li><strong>Modelo</strong> — El resultado del aprendizaje. ChatGPT o Claude son modelos de IA entrenados con millones de textos.</li>
+        </ul>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">03</div>
+        <div class="modulo-icon">🗂️</div>
+        <h3>Tipos de IA</h3>
+        <p>No toda la IA es igual. Las más útiles para el día a día son:</p>
+        <ul class="modulo-lista">
+          <li><strong>IA de texto</strong> — Escribe, resume, traduce y responde preguntas. Ej: ChatGPT, Claude.</li>
+          <li><strong>IA de imágenes</strong> — Crea o edita fotos e ilustraciones. Ej: Canva AI, Midjourney.</li>
+          <li><strong>IA de voz</strong> — Transcribe audio, genera voz realista. Ej: Whisper, ElevenLabs.</li>
+          <li><strong>IA de video</strong> — Edita videos automáticamente. Ej: CapCut AI.</li>
+        </ul>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">04</div>
+        <div class="modulo-icon">⚡</div>
+        <h3>¿Qué es un Prompt?</h3>
+        <p>Un prompt es simplemente el mensaje o instrucción que le escribís a la IA. Es como hablarle: cuanto más claro y específico seas, mejor va a ser la respuesta.</p>
+        <div class="modulo-comparacion">
+          <div class="comp-malo">
+            <span class="comp-label mal">❌ Prompt vago</span>
+            "Escribime algo sobre mi negocio"
+          </div>
+          <div class="comp-bueno">
+            <span class="comp-label bien">✅ Prompt específico</span>
+            "Escribime una descripción de 3 líneas para Instagram de mi servicio de plomería en Buenos Aires, tono cercano y profesional"
+          </div>
+        </div>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">05</div>
+        <div class="modulo-icon">💬</div>
+        <h3>Cómo Conversar con una IA</h3>
+        <p>Hablarle a una IA es más fácil de lo que parece. Algunos consejos:</p>
+        <ul class="modulo-lista">
+          <li><strong>Sé específico</strong> — Decile exactamente qué necesitás y para qué.</li>
+          <li><strong>Dá contexto</strong> — Contale quién sos y cuál es tu situación.</li>
+          <li><strong>Pedí cambios</strong> — Si no te gusta la respuesta, pedile que lo ajuste.</li>
+          <li><strong>Hacé preguntas</strong> — Podés seguir la conversación como si hablaras con una persona.</li>
+        </ul>
+        <div class="modulo-ejemplo">
+          <span class="modulo-ejemplo-label">Tip</span>
+          Empezá con: "Actúa como experto en [tu área] y ayúdame con..."
+        </div>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">06</div>
+        <div class="modulo-icon">✅</div>
+        <h3>Buenas Prácticas</h3>
+        <ul class="modulo-lista">
+          <li><strong>Revisá siempre</strong> — La IA puede cometer errores. Leé y verificá antes de usar cualquier respuesta.</li>
+          <li><strong>No compartas datos sensibles</strong> — Contraseñas, números de documento o información privada nunca van en un prompt.</li>
+          <li><strong>Usala como asistente</strong> — La IA es una herramienta, no un reemplazo de tu criterio.</li>
+          <li><strong>Probá y experimentá</strong> — No hay una forma "correcta" única. Jugá hasta encontrar lo que funciona para vos.</li>
+        </ul>
+      </div>
+
+      <div class="modulo-card">
+        <div class="modulo-num">07</div>
+        <div class="modulo-icon">🔍</div>
+        <h3>Limitaciones y Pensamiento Crítico</h3>
+        <p>La IA es poderosa pero no perfecta. Es importante saber esto:</p>
+        <ul class="modulo-lista">
+          <li><strong>Puede inventar información</strong> — Se llama "alucinación". Si algo parece raro, verificalo.</li>
+          <li><strong>No tiene opinión propia</strong> — Responde en base a lo que aprendió, no a lo que "cree".</li>
+          <li><strong>No conoce tu contexto</strong> — Tenés que dárselo vos cada vez que empezás una conversación.</li>
+          <li><strong>No reemplaza profesionales</strong> — Para temas de salud, legales o financieros importantes, consultá siempre a un experto.</li>
+        </ul>
+      </div>
+
+      <div class="modulo-card modulo-cta">
+        <div class="modulo-num">08</div>
+        <div class="modulo-icon">🚀</div>
+        <h3>Elegí tu Perfil en EduContext</h3>
+        <p>Ya conocés los conceptos básicos. Ahora es tu turno de explorar las herramientas, prompts y recursos adaptados específicamente a tu profesión, oficio o contexto de vida.</p>
+        <p>EduContext tiene más de 34 perfiles organizados por categorías. Cada uno con contenido pensado para vos.</p>
+        <button class="btn-primary" data-action="show-profiles">Explorar perfiles →</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ CATEGORÍAS CLICKEABLES ═════════════════════════ -->
+  <div id="categorias-section" class="section categorias-section">
+    <div class="section-label">Perfiles por categoría</div>
+    <h2 class="section-title">¿Cuál es tu mundo?</h2>
+    <p class="section-sub">Elegí la categoría que mejor describe tu contexto y accedé a los recursos adaptados para vos.</p>
+
+    <div class="categorias-grid">
+      <div class="categoria-card" data-action="show-profiles-by-category" data-category="oficios" role="button" tabindex="0">
+        <div class="categoria-icon">🛠️</div>
+        <h3>Oficios</h3>
+        <p>Plomería, electricidad, carpintería, pintura, jardinería, mecánica y más.</p>
+        <span class="categoria-count">9 perfiles</span>
+      </div>
+      <div class="categoria-card" data-action="show-profiles-by-category" data-category="profesiones" role="button" tabindex="0">
+        <div class="categoria-icon">💼</div>
+        <h3>Profesiones</h3>
+        <p>Marketing, derecho, arquitectura, fotografía, veterinaria, logística y más.</p>
+        <span class="categoria-count">8 perfiles</span>
+      </div>
+      <div class="categoria-card" data-action="show-profiles-by-category" data-category="emprendimiento" role="button" tabindex="0">
+        <div class="categoria-icon">💄</div>
+        <h3>Emprendimiento & Lifestyle</h3>
+        <p>Cosmética, gastronomía, peluquería, costura, contenido y emprendedores.</p>
+        <span class="categoria-count">6 perfiles</span>
+      </div>
+      <div class="categoria-card" data-action="show-profiles-by-category" data-category="estudiantes" role="button" tabindex="0">
+        <div class="categoria-icon">🎓</div>
+        <h3>Estudiantes</h3>
+        <p>Secundario, universitario, terciario y profesores de todos los niveles.</p>
+        <span class="categoria-count">4 perfiles</span>
+      </div>
+      <div class="categoria-card" data-action="show-profiles-by-category" data-category="tecnologia" role="button" tabindex="0">
+        <div class="categoria-icon">📊</div>
+        <h3>Tecnología & Datos</h3>
+        <p>Data Science, Big Data, análisis de datos y herramientas técnicas avanzadas.</p>
+        <span class="categoria-count">2 perfiles</span>
+      </div>
+      <div class="categoria-card" data-action="show-profiles-by-category" data-category="vida" role="button" tabindex="0">
+        <div class="categoria-icon">🌍</div>
+        <h3>Vida & Cultura</h3>
+        <p>Vida cotidiana, adultos mayores, mamás y papás, historia y teología.</p>
+        <span class="categoria-count">5 perfiles</span>
+      </div>
+    </div>
+
+    <div class="center-cta">
+      <button class="btn-secondary" data-action="show-profiles">Ver todos los perfiles →</button>
+    </div>
+  </div>
+
+  <!-- ═══ SOBRE EDUCONTEXT ════════════════════════════════ -->
+  <div id="sobre-section" class="section sobre-section">
+    <div class="section-label">El proyecto</div>
+    <h2 class="section-title">Sobre EduContext</h2>
+    <div class="sobre-grid">
+      <div class="sobre-texto">
+        <p class="sobre-lead">EduContext nació con una convicción simple: <strong>la tecnología tiene sentido cuando mejora la vida de las personas.</strong></p>
+        <p>La inteligencia artificial está transformando todos los sectores, pero la mayoría de los recursos disponibles están pensados para perfiles técnicos o académicos. EduContext existe para cambiar eso.</p>
+        <p>Esta plataforma organiza herramientas de IA, prompts y recursos educativos adaptados a cada contexto real: el plomero que quiere digitalizar su negocio, la estudiante de enfermería que necesita organizar sus guardias, la costurera que quiere vender online o el adulto mayor que quiere aprender a usar el celular.</p>
+        <p>EduContext es un proyecto <strong>gratuito, sin fines de lucro</strong>, creado para acercar la inteligencia artificial a todas las personas, sin importar su profesión, nivel educativo o punto de partida.</p>
+        <div class="sobre-creadora">
+          <div class="sobre-avatar">CG</div>
+          <div>
+            <strong>Celena Gómez</strong>
+            <span>Estudiante de Ciencias de Datos · Creadora de EduContext</span>
+          </div>
+        </div>
+      </div>
+      <div class="sobre-valores">
+        <div class="valor-card"><span class="valor-icon">🎯</span><h4>Contextualizado</h4><p>Cada recurso está pensado para un perfil real, no para un usuario genérico.</p></div>
+        <div class="valor-card"><span class="valor-icon">🆓</span><h4>Gratuito</h4><p>Sin suscripciones, sin pagos, sin barreras. El conocimiento es de todos.</p></div>
+        <div class="valor-card"><span class="valor-icon">🌱</span><h4>En crecimiento</h4><p>EduContext crece con la comunidad. Cada sugerencia suma al proyecto.</p></div>
+        <div class="valor-card"><span class="valor-icon">🤝</span><h4>Accesible</h4><p>Pensado para cualquier persona, desde cualquier punto de partida.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PARTICIPAR ══════════════════════════════════════ -->
+  <div id="participar-section" class="section participar-section">
+    <div class="section-label">Comunidad</div>
+    <h2 class="section-title">EduContext crece con vos</h2>
+    <p class="section-sub">Este proyecto mejora gracias a las sugerencias y necesidades reales de la comunidad. Tu opinión importa.</p>
+    <div class="participar-grid">
+      <div class="participar-card">
+        <div class="participar-icon">➕</div>
+        <h3>Solicitá un perfil nuevo</h3>
+        <p>¿No encontrás tu profesión u oficio? Pedilo y lo sumamos.</p>
+      </div>
+      <div class="participar-card">
+        <div class="participar-icon">🛠️</div>
+        <h3>Recomendá una herramienta</h3>
+        <p>¿Usás una IA que no aparece en tu perfil? Compartila con la comunidad.</p>
+      </div>
+      <div class="participar-card">
+        <div class="participar-icon">💡</div>
+        <h3>Proponé mejoras</h3>
+        <p>¿Algo no funciona bien o se puede mejorar? Contanos.</p>
+      </div>
+      <div class="participar-card">
+        <div class="participar-icon">🐛</div>
+        <h3>Informá errores</h3>
+        <p>Si encontrás algo que no funciona, avisanos para corregirlo.</p>
+      </div>
+    </div>
+    <div class="center-cta center-cta--lg">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXTHajgp5SBA2nBEB9XsKcWV3fCvSxNCbvtkpeQhLTg5xMAg/viewform" target="_blank" class="btn-primary">💬 Completar formulario de sugerencias</a>
+    </div>
+  </div>
+
+  <!-- Novedades -->
+  <div class="section section--divided">
+    <div class="section-label">Novedades</div>
+    <h2 class="section-title">Últimas actualizaciones</h2>
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon">🆕</div><h3>v3.0 — 34 perfiles</h3><p>Sumamos 20 perfiles nuevos: oficios, profesiones, estudiantes, mamás y papás y más. Todos con prompts y herramientas actualizadas.</p></div>
+      <div class="feat-card"><div class="feat-icon">🗂️</div><h3>Perfiles por categorías</h3><p>Ahora los perfiles están organizados por categorías para que encuentres lo que buscás más fácil y rápido.</p></div>
+      <div class="feat-card"><div class="feat-icon">🤖</div><h3>Sección Empezar con IA</h3><p>Nueva guía introductoria para personas que nunca usaron inteligencia artificial. Simple, clara y en español.</p></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    Creado por <strong>Celena Gómez</strong> · 2026 · EduContext es gratuito y sin fines de lucro
+    <br><br>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXTHajgp5SBA2nBEB9XsKcWV3fCvSxNCbvtkpeQhLTg5xMAg/viewform" target="_blank" rel="noopener" class="footer-link">💬 Sugerí un perfil o dejá tu opinión</a>
+  </footer>
+
+</div><!-- /#landing -->
+
+
+<!-- ═══ SELECTOR DE PERFILES ═══════════════════════════════ -->
+<div id="profiles" class="view">
+  <div class="profiles-header">
+    <button class="back-btn" data-action="show-landing">← Volver al inicio</button>
+    <h2>Explorá los perfiles</h2>
+    <p>Encontrá el contenido adaptado a tu profesión, oficio o contexto de vida.</p>
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Buscar perfil..." autocomplete="off">
+    </div>
+    <!-- Filtros de categoría -->
+    <div class="category-filters" id="category-filters">
+      <button class="cat-filter active" data-action="filter-category" data-category="">Todos</button>
+      <button class="cat-filter" data-action="filter-category" data-category="oficios">🛠️ Oficios</button>
+      <button class="cat-filter" data-action="filter-category" data-category="profesiones">💼 Profesiones</button>
+      <button class="cat-filter" data-action="filter-category" data-category="emprendimiento">💄 Emprendimiento</button>
+      <button class="cat-filter" data-action="filter-category" data-category="estudiantes">🎓 Estudiantes</button>
+      <button class="cat-filter" data-action="filter-category" data-category="tecnologia">📊 Tecnología</button>
+      <button class="cat-filter" data-action="filter-category" data-category="vida">🌍 Vida & Cultura</button>
+    </div>
+  </div>
+  <div class="profiles-grid" id="profiles-grid"></div>
+  <div class="center-cta center-cta--pad">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXTHajgp5SBA2nBEB9XsKcWV3fCvSxNCbvtkpeQhLTg5xMAg/viewform" target="_blank" class="btn-secondary">💬 ¿No encontrás tu perfil? Sugerilo acá</a>
+  </div>
+</div><!-- /#profiles -->
+
+
+<!-- ═══ DASHBOARD ══════════════════════════════════════════ -->
+<div id="dashboard" class="view">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <button class="back-btn" data-action="show-profiles">← Cambiar perfil</button>
+      <div class="sidebar-profile">
+        <div class="sidebar-emoji" id="sb-emoji"></div>
+        <div><h3 id="sb-name"></h3><p id="sb-area"></p></div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-label">Módulos</div>
+      <div class="nav-item active" data-action="set-nav" data-panel="overview" role="button" tabindex="0"><span class="icon">🏠</span>Resumen</div>
+      <div class="nav-item" data-action="set-nav" data-panel="tools" role="button" tabindex="0"><span class="icon">🛠️</span>Herramientas</div>
+      <div class="nav-item" data-action="set-nav" data-panel="prompts" role="button" tabindex="0"><span class="icon">⚡</span>Prompts</div>
+      <div class="nav-item" data-action="set-nav" data-panel="resources" role="button" tabindex="0"><span class="icon">📚</span>Recursos</div>
+      <div class="nav-item" data-action="set-nav" data-panel="apps" role="button" tabindex="0"><span class="icon">🚀</span>Aplicaciones</div>
+      <div class="nav-item" data-action="set-nav" data-panel="tips" role="button" tabindex="0"><span class="icon">💡</span>Consejos</div>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXTHajgp5SBA2nBEB9XsKcWV3fCvSxNCbvtkpeQhLTg5xMAg/viewform" target="_blank" class="btn-sugerir">💬 Sugerí un perfil</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div id="panel-overview" class="tab-panel active">
+      <div id="welcome-block"></div>
+      <div class="divider"></div>
+      <div class="section-head"><h2>🛠️ Herramientas destacadas</h2></div>
+      <div class="tools-grid" id="overview-tools"></div>
+      <div class="divider"></div>
+      <div class="section-head"><h2>⚡ Prompt del día</h2></div>
+      <div id="overview-prompt"></div>
+    </div>
+    <div id="panel-tools" class="tab-panel">
+      <div class="dash-header"><h1>🛠️ Herramientas &amp; IAs</h1><p>Todas las herramientas recomendadas para tu perfil, con explicaciones claras de para qué sirven.</p></div>
+      <div class="tools-grid" id="all-tools"></div>
+    </div>
+    <div id="panel-prompts" class="tab-panel">
+      <div class="dash-header"><h1>⚡ Prompts listos para usar</h1><p>Cópialos directamente en ChatGPT, Claude u otras IAs. Están optimizados para tu área.</p></div>
+      <div class="prompts-list" id="all-prompts"></div>
+    </div>
+    <div id="panel-resources" class="tab-panel">
+      <div class="dash-header"><h1>📚 Recursos educativos</h1><p>Plataformas, canales y comunidades seleccionadas para seguir aprendiendo en tu área.</p></div>
+      <div class="resources-grid" id="all-resources"></div>
+    </div>
+    <div id="panel-apps" class="tab-panel">
+      <div class="dash-header"><h1>🚀 Aplicaciones reales</h1><p>Casos de uso concretos: cómo personas reales en tu área usan estas herramientas.</p></div>
+      <div class="apps-grid" id="all-apps"></div>
+    </div>
+    <div id="panel-tips" class="tab-panel">
+      <div class="dash-header"><h1>💡 Consejos prácticos</h1><p>Recomendaciones directas para empezar a aplicar IA y herramientas digitales desde hoy.</p></div>
+      <div class="tips-list" id="all-tips"></div>
+    </div>
+  </main>
+</div><!-- /#dashboard -->
+
+<!-- Botón volver arriba -->
+<button id="scroll-top-btn" title="Volver arriba">↑</button>
+
+<script is:inline src={`${BASE}/data/profiles.js`}></script>
+<script is:inline src={`${BASE}/js/utils/sanitize.js`}></script>
+<script is:inline src={`${BASE}/js/render/profiles.js`}></script>
+<script is:inline src={`${BASE}/js/render/dashboard.js`}></script>
+<script is:inline define:vars={{ BASE }}>window.EDUCONTEXT_BASE = BASE;</script>
+<script is:inline src={`${BASE}/js/app.js`}></script>
+<script is:inline src={`${BASE}/js/chat.js`}></script>
+</body>
+</html>
