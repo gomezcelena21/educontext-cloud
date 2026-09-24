@@ -120,11 +120,18 @@ function handleAction(el, e) {
     case 'nav-close-and-scroll':
       e.preventDefault();
       closeMenu();
-      showLanding();
+      // Si ya estamos en el landing, no reiniciamos el scroll al top:
+      // eso era lo que causaba el salto hacia arriba antes de bajar.
+      var wasOnLanding = document.getElementById('landing').classList.contains('active');
+      if (!wasOnLanding) {
+        document.getElementById('landing').classList.add('active');
+        document.getElementById('profiles').classList.remove('active');
+        document.getElementById('dashboard').classList.remove('active');
+      }
       setTimeout(function() {
         var target = document.getElementById(el.dataset.target);
         if (target) target.scrollIntoView({ behavior: 'smooth' });
-      }, 400);
+      }, wasOnLanding ? 0 : 300);
       break;
     case 'nav-close':
       closeMenu();

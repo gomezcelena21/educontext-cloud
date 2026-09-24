@@ -16,13 +16,13 @@
 
   /* Bordes */
   --border:    #DEDAD1;
-  --border2:   rgba(31,95,112,.28);
+  --border2:   rgba(38,101,140,.28);
 
-  /* Color primario: azul petróleo (antes "cyan", mismo nombre de variable) */
-  --cyan:      #1F5F70;
-  --cyan2:     #163F4B;
-  --cyan-dim:  rgba(31,95,112,.10);
-  --cyan-glow: rgba(31,95,112,.15);
+  /* Color primario: paleta LUNA que elegiste (antes "cyan", mismo nombre de variable) */
+  --cyan:      #26658C;
+  --cyan2:     #023859;
+  --cyan-dim:  rgba(38,101,140,.10);
+  --cyan-glow: rgba(38,101,140,.15);
 
   /* Texto */
   --text:      #1F1E1A;
@@ -31,7 +31,7 @@
 
   /* Acentos */
   --accent:    #E0A458;   /* "camino" / progreso — uso exclusivo en el componente Camino */
-  --green:     #1F5F70;   /* éxito, alias del primario */
+  --green:     #26658C;   /* éxito, alias del primario */
   --amber:     #E0A458;   /* alias de --accent, para compatibilidad con el CSS existente */
   --rose:      #E27D60;   /* atención / error */
 
@@ -60,16 +60,16 @@
     --surface:   #2C2B24;
     --surface2:  #33322A;
     --border:    #3A3930;
-    --border2:   rgba(79,163,184,.30);
-    --cyan:      #4FA3B8;
-    --cyan2:     #3D8598;
-    --cyan-dim:  rgba(79,163,184,.14);
-    --cyan-glow: rgba(79,163,184,.18);
+    --border2:   rgba(84,172,191,.30);
+    --cyan:      #54ACBF;
+    --cyan2:     #26658C;
+    --cyan-dim:  rgba(84,172,191,.14);
+    --cyan-glow: rgba(84,172,191,.18);
     --text:      #F0EDE5;
     --text2:     #A6A398;
     --text3:     #86847A;
     --accent:    #E8B872;
-    --green:     #4FA3B8;
+    --green:     #54ACBF;
     --amber:     #E8B872;
     --rose:      #E89680;
   }
@@ -81,16 +81,16 @@
   --surface:   #2C2B24;
   --surface2:  #33322A;
   --border:    #3A3930;
-  --border2:   rgba(79,163,184,.30);
-  --cyan:      #4FA3B8;
-  --cyan2:     #3D8598;
-  --cyan-dim:  rgba(79,163,184,.14);
-  --cyan-glow: rgba(79,163,184,.18);
+  --border2:   rgba(84,172,191,.30);
+  --cyan:      #54ACBF;
+  --cyan2:     #26658C;
+  --cyan-dim:  rgba(84,172,191,.14);
+  --cyan-glow: rgba(84,172,191,.18);
   --text:      #F0EDE5;
   --text2:     #A6A398;
   --text3:     #86847A;
   --accent:    #E8B872;
-  --green:     #4FA3B8;
+  --green:     #54ACBF;
   --amber:     #E8B872;
   --rose:      #E89680;
 }
