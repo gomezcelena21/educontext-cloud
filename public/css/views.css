@@ -6,6 +6,36 @@
 
 /* ─── LANDING ────────────────────────────────── */#landing {
   background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Orbes de fondo — dan profundidad/vida sin caer en el violeta genérico:
+   usan la paleta propia (azul petróleo + ámbar), muy difuminados y sutiles. */
+#landing::before,
+#landing::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+#landing::before {
+  width: 480px;
+  height: 480px;
+  top: -160px;
+  right: -120px;
+  background: radial-gradient(circle, var(--cyan) 0%, transparent 70%);
+  opacity: .18;
+}
+#landing::after {
+  width: 420px;
+  height: 420px;
+  top: 30%;
+  left: -180px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: .14;
 }
 
 /* NAV *//* HERO */.hero {
@@ -13,6 +43,8 @@
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-badge {
@@ -20,6 +52,7 @@
   align-items: center;
   gap: .5rem;
   background: var(--cyan-dim);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--border2);
   padding: .35rem 1rem;
   border-radius: 99px;
@@ -30,6 +63,7 @@
   font-family: 'JetBrains Mono', monospace;
   letter-spacing: .06em;
   animation: fadeUp .6s ease both;
+  box-shadow: 0 2px 12px var(--cyan-glow);
 }
 
 .hero-badge::before { content: '●'; font-size: .6rem; animation: pulse 2s infinite; }
@@ -70,13 +104,17 @@
   display: flex;
   justify-content: center;
   gap: 0;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border2);
   border-radius: var(--r2);
   overflow: hidden;
   max-width: 680px;
   margin: 5rem auto 0;
   animation: fadeUp .7s .4s ease both;
-  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px var(--cyan-glow);
+  position: relative;
+  z-index: 1;
 }
 
 .stat { flex: 1; padding: 1.8rem 1.5rem; text-align: center; border-right: 1px solid var(--border); }
@@ -489,9 +527,15 @@ footer a:hover { text-decoration: underline; }
 .categoria-card[data-category="vida"]           { background: var(--grad-vida); }
 
 .categoria-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px rgba(0,0,0,.22);
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 20px 40px rgba(0,0,0,.22), 0 0 32px -8px currentColor;
 }
+.categoria-card[data-category="oficios"]:hover        { color: #F0A93A; }
+.categoria-card[data-category="profesiones"]:hover    { color: #3A9B9B; }
+.categoria-card[data-category="emprendimiento"]:hover { color: #E85C8A; }
+.categoria-card[data-category="estudiantes"]:hover    { color: #8B6FD6; }
+.categoria-card[data-category="tecnologia"]:hover     { color: #4E9161; }
+.categoria-card[data-category="vida"]:hover            { color: #E2825C; }
 
 .categoria-card:focus-visible {
   outline: 2px solid #fff;

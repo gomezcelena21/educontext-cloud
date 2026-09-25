@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const prerender = false;
 
@@ -29,7 +30,7 @@ interface ChatMessage {
   text: string;
 }
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   let body: { messages?: ChatMessage[] };
   try {
     body = await request.json();
@@ -51,15 +52,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   // La key vive server-side únicamente (Cloudflare/Webflow Cloud env binding),
   // nunca se envía al cliente. Ver DEPLOY-WEBFLOW-CLOUD.md para configurarla.
-  const env = (locals as any)?.runtime?.env ?? {};
-  const apiKey = env.GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY;
+  const apiKey = (env as any).GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY;
   if (!apiKey) {
     return new Response(
       JSON.stringify({ error: 'La IA conversacional todavía no está configurada en este entorno.' }),
       { status: 503 }
     );
   }
-  const model = env.GEMINI_MODEL || import.meta.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const model = (env as any).GEMINI_MODEL || import.meta.env.GEMINI_MODEL || 'gemini-2.5-flash';
 
   const contents = trimmed.map((m) => ({
     role: m.role === 'model' ? 'model' : 'user',
