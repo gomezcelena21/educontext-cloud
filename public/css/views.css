@@ -10,32 +10,49 @@
   overflow: hidden;
 }
 
-/* Orbes de fondo — dan profundidad/vida sin caer en el violeta genérico:
-   usan la paleta propia (azul petróleo + ámbar), muy difuminados y sutiles. */
+/* Orbes de fondo — blobs orgánicos difuminados en degradé púrpura → azul,
+   estilo "nebulosa", inspirados en la referencia visual elegida. */
 #landing::before,
 #landing::after {
   content: '';
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(100px);
   pointer-events: none;
   z-index: 0;
 }
 #landing::before {
-  width: 480px;
-  height: 480px;
-  top: -160px;
-  right: -120px;
-  background: radial-gradient(circle, var(--cyan) 0%, transparent 70%);
-  opacity: .18;
+  width: 620px;
+  height: 620px;
+  top: -220px;
+  right: -160px;
+  background: radial-gradient(circle at 30% 30%, #CAA9F3 0%, #7997E6 55%, transparent 75%);
+  opacity: .38;
 }
 #landing::after {
-  width: 420px;
-  height: 420px;
-  top: 30%;
-  left: -180px;
-  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-  opacity: .14;
+  width: 520px;
+  height: 520px;
+  top: 22%;
+  left: -220px;
+  background: radial-gradient(circle at 60% 40%, #7997E6 0%, #206ABC 55%, transparent 75%);
+  opacity: .28;
+}
+.hero {
+  --blob-extra: 1;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  left: 50%;
+  top: -60px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 30%, #B37AD4 0%, transparent 70%);
+  filter: blur(90px);
+  opacity: .22;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* NAV *//* HERO */.hero {
@@ -79,7 +96,10 @@
 }
 
 .hero h1 span {
-  color: var(--cyan);
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero-sub {
@@ -146,6 +166,8 @@
 
 .feat-card {
   background: var(--surface);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
   border: 1px solid var(--border);
   border-radius: var(--r2);
   padding: 2rem;
@@ -246,7 +268,7 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--cyan);
+  background: var(--grad-primary);
   border-radius: 99px;
   transition: width .5s ease;
 }
@@ -348,6 +370,8 @@ footer a:hover { text-decoration: underline; }
 
 .modulo-card {
   background: var(--surface);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
   border: 1px solid var(--border);
   border-radius: var(--r2);
   padding: 2rem;
@@ -369,7 +393,7 @@ footer a:hover { text-decoration: underline; }
 .modulo-card:hover {
   border-color: var(--border2);
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0,0,0,.3);
+  box-shadow: 0 12px 32px rgba(76,60,150,.12);
 }
 
 .modulo-card:hover::before { opacity: 1; }
@@ -528,7 +552,7 @@ footer a:hover { text-decoration: underline; }
 
 .categoria-card:hover {
   transform: translateY(-6px) scale(1.015);
-  box-shadow: 0 20px 40px rgba(0,0,0,.22), 0 0 32px -8px currentColor;
+  box-shadow: 0 20px 40px rgba(76,60,150,.12), 0 0 32px -8px currentColor;
 }
 .categoria-card[data-category="oficios"]:hover        { color: #F0A93A; }
 .categoria-card[data-category="profesiones"]:hover    { color: #3A9B9B; }
@@ -548,7 +572,7 @@ footer a:hover { text-decoration: underline; }
   right: 1.2rem;
   font-size: 3.4rem;
   opacity: .35;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,.15));
+  filter: drop-shadow(0 4px 10px rgba(76,60,150,.10));
   pointer-events: none;
 }
 
@@ -622,6 +646,8 @@ footer a:hover { text-decoration: underline; }
   margin-top: 2rem;
   padding: 1.2rem;
   background: var(--surface);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
   border: 1px solid var(--border);
   border-radius: var(--r2);
 }
@@ -630,7 +656,7 @@ footer a:hover { text-decoration: underline; }
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--cyan);
+  background: var(--grad-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -662,6 +688,8 @@ footer a:hover { text-decoration: underline; }
 
 .valor-card {
   background: var(--surface);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
   border: 1px solid var(--border);
   border-radius: var(--r2);
   padding: 1.4rem;
@@ -695,6 +723,8 @@ footer a:hover { text-decoration: underline; }
 
 .participar-card {
   background: var(--surface);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
   border: 1px solid var(--border);
   border-radius: var(--r2);
   padding: 1.8rem;

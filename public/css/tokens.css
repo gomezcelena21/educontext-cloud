@@ -1,96 +1,101 @@
 /* ═══════════════════════════════════════════════════
    DESIGN TOKENS — EduContext
-   Concepto: "Escritorio con camino" (Fase 4)
+   Concepto: "Nebulosa" — glassmorphism claro, gradiente
+   púrpura → azul, formas orgánicas difuminadas.
    Mismos nombres de variable que el CSS original para
    minimizar cambios en el resto de las hojas de estilo;
-   los VALORES sí cambian a la nueva identidad visual.
+   los VALORES cambian a la nueva identidad visual.
    ═══════════════════════════════════════════════════ */
 
 :root {
-  /* Fondo y superficies */
-  --bg:        #F5F3EF;
-  --bg2:       #EDEAE3;
-  --bg3:       #E4E0D6;
-  --surface:   #FFFFFF;
-  --surface2:  #FBFAF7;
+  /* Fondo y superficies — lavanda muy claro, base para el glass */
+  --bg:        #F3F1FC;
+  --bg2:       #EAE5FA;
+  --bg3:       #DFD9F5;
+  --surface:   rgba(255,255,255,.72);
+  --surface2:  rgba(255,255,255,.55);
 
-  /* Bordes */
-  --border:    #DEDAD1;
-  --border2:   rgba(38,101,140,.28);
+  /* Bordes — sutiles, con tinte violeta/azul */
+  --border:    rgba(147,128,214,.22);
+  --border2:   rgba(121,151,230,.38);
 
-  /* Color primario: paleta LUNA que elegiste (antes "cyan", mismo nombre de variable) */
-  --cyan:      #26658C;
-  --cyan2:     #023859;
-  --cyan-dim:  rgba(38,101,140,.10);
-  --cyan-glow: rgba(38,101,140,.15);
+  /* Color primario: Periwinkle → Atlantis (paleta de referencia) */
+  --cyan:      #7997E6;
+  --cyan2:     #206ABC;
+  --cyan-dim:  rgba(121,151,230,.14);
+  --cyan-glow: rgba(121,151,230,.22);
+
+  /* Gradiente insignia — Verbena → Periwinkle → Atlantis */
+  --grad-primary: linear-gradient(135deg, #B37AD4, #7997E6 55%, #206ABC);
+  --blur: blur(20px) saturate(160%);
 
   /* Texto */
-  --text:      #1F1E1A;
-  --text2:     #6B6960;
-  --text3:     #8C8A80;
+  --text:      #211B3E;
+  --text2:     #5E5780;
+  --text3:     #8B84AB;
 
   /* Acentos */
   --accent:    #E0A458;   /* "camino" / progreso — uso exclusivo en el componente Camino */
-  --green:     #26658C;   /* éxito, alias del primario */
+  --green:     #3F9B7F;   /* éxito */
   --amber:     #E0A458;   /* alias de --accent, para compatibilidad con el CSS existente */
-  --rose:      #E27D60;   /* atención / error */
+  --rose:      #D9738E;   /* atención / error */
 
   /* Radios */
   --r:  .75rem;
   --r2: 1.25rem;
   --r3: 2rem;
 
-  /* Gradientes por categoría — uso exclusivo en .categoria-card,
-     inspirados en la referencia visual tipo dashboard de producto.
-     No se usan en botones, nav ni otros componentes. */
+  /* Gradientes por categoría — uso exclusivo en .categoria-card */
   --grad-oficios:        linear-gradient(135deg, #F0A93A, #D9702E);
-  --grad-profesiones:    linear-gradient(135deg, #3A9B9B, #1F5F70);
+  --grad-profesiones:    linear-gradient(135deg, #4EA8B8, #206ABC);
   --grad-emprendimiento: linear-gradient(135deg, #E85C8A, #C23E6B);
-  --grad-estudiantes:    linear-gradient(135deg, #8B6FD6, #5B45A8);
+  --grad-estudiantes:    linear-gradient(135deg, #B37AD4, #5B45A8);
   --grad-tecnologia:     linear-gradient(135deg, #4E9161, #2F5233);
   --grad-vida:           linear-gradient(135deg, #E2825C, #B8532F);
 }
 
-/* Modo oscuro real (no solo un dark genérico) */
+/* Modo oscuro real — noche profunda, mismo espíritu glass */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:        #20201C;
-    --bg2:       #29281F;
-    --bg3:       #322F24;
-    --surface:   #2C2B24;
-    --surface2:  #33322A;
-    --border:    #3A3930;
-    --border2:   rgba(84,172,191,.30);
-    --cyan:      #54ACBF;
-    --cyan2:     #26658C;
-    --cyan-dim:  rgba(84,172,191,.14);
-    --cyan-glow: rgba(84,172,191,.18);
-    --text:      #F0EDE5;
-    --text2:     #A6A398;
-    --text3:     #86847A;
+    --bg:        #14102B;
+    --bg2:       #1C1640;
+    --bg3:       #241C4E;
+    --surface:   rgba(38,28,74,.55);
+    --surface2:  rgba(38,28,74,.4);
+    --border:    rgba(179,122,212,.22);
+    --border2:   rgba(121,151,230,.4);
+    --cyan:      #A6BDF2;
+    --cyan2:     #7997E6;
+    --cyan-dim:  rgba(166,189,242,.16);
+    --cyan-glow: rgba(166,189,242,.22);
+    --grad-primary: linear-gradient(135deg, #CAA9F3, #7997E6 55%, #4EA8DA);
+    --text:      #F0EDFB;
+    --text2:     #B6ADD9;
+    --text3:     #8A80B8;
     --accent:    #E8B872;
-    --green:     #54ACBF;
+    --green:     #6BC2A3;
     --amber:     #E8B872;
-    --rose:      #E89680;
+    --rose:      #E893A9;
   }
 }
 :root[data-theme="dark"] {
-  --bg:        #20201C;
-  --bg2:       #29281F;
-  --bg3:       #322F24;
-  --surface:   #2C2B24;
-  --surface2:  #33322A;
-  --border:    #3A3930;
-  --border2:   rgba(84,172,191,.30);
-  --cyan:      #54ACBF;
-  --cyan2:     #26658C;
-  --cyan-dim:  rgba(84,172,191,.14);
-  --cyan-glow: rgba(84,172,191,.18);
-  --text:      #F0EDE5;
-  --text2:     #A6A398;
-  --text3:     #86847A;
+  --bg:        #14102B;
+  --bg2:       #1C1640;
+  --bg3:       #241C4E;
+  --surface:   rgba(38,28,74,.55);
+  --surface2:  rgba(38,28,74,.4);
+  --border:    rgba(179,122,212,.22);
+  --border2:   rgba(121,151,230,.4);
+  --cyan:      #A6BDF2;
+  --cyan2:     #7997E6;
+  --cyan-dim:  rgba(166,189,242,.16);
+  --cyan-glow: rgba(166,189,242,.22);
+  --grad-primary: linear-gradient(135deg, #CAA9F3, #7997E6 55%, #4EA8DA);
+  --text:      #F0EDFB;
+  --text2:     #B6ADD9;
+  --text3:     #8A80B8;
   --accent:    #E8B872;
-  --green:     #54ACBF;
+  --green:     #6BC2A3;
   --amber:     #E8B872;
-  --rose:      #E89680;
+  --rose:      #E893A9;
 }

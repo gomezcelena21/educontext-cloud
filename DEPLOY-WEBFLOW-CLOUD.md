@@ -29,8 +29,12 @@ git push
 
 Webflow Cloud reemplaza automáticamente el placeholder `CLOUD_MOUNT_PATH` en `astro.config.mjs` por el path real que elijas — no lo edites vos.
 
-## 3. Variables de entorno (para cuando esté lista la IA conversacional)
-En **Apps → tu app → Settings → Environment Variables**, agregá `AI_API_KEY` con tu clave real. Nunca la pongas en el código ni en un commit.
+## 3. Variables de entorno (para la IA conversacional)
+En **Apps → tu app → Settings → Environment Variables**, agregá:
+- `GEMINI_API_KEY` — tu clave real, gratis en https://aistudio.google.com/apikey. Nunca la pongas en el código ni en un commit.
+- `GEMINI_MODEL` (opcional) — por defecto usa `gemini-2.5-flash` si no la seteás.
+
+Importante: los env vars de Cloudflare Workers no aplican en caliente — después de guardarlos hacé un redeploy (push nuevo o "redeploy" manual desde el panel) para que tomen efecto.
 
 ## 4. Verificar
 Cada push a la rama conectada dispara un deploy automático. Webflow Cloud te da una URL pública — abrila y probá el flujo completo (perfiles, búsqueda, dashboard) antes de la entrega.
