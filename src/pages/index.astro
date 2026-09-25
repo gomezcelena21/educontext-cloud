@@ -1,10 +1,6 @@
 ---
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 // EduContext — página principal
-// Migrado desde index.html estático (sub-entrega Webflow Cloud).
-// El contenido interactivo sigue siendo el mismo JS vanilla que ya
-// funcionaba; Astro solo se encarga del layout/servido y, a partir
-// de acá, del backend (rutas /api) para la IA conversacional.
 ---
 
 <!DOCTYPE html>
@@ -27,9 +23,18 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
   <link rel="stylesheet" href={`${BASE}/css/components.css`}>
   <link rel="stylesheet" href={`${BASE}/css/camino.css`}>
   <link rel="stylesheet" href={`${BASE}/css/views.css`}>
+
+  <style>
+    /* Oculta la interfaz o botones del chat antiguo para dejar unicamente la burbuja flotante de Chatbase */
+    #chat-container,
+    .chat-window,
+    .chat-modal,
+    [data-action="open-chat"] {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
-
 
 <!-- ═══ SIDEBAR PERSISTENTE (desktop) ═══════════════════════ -->
 <aside class="app-sidebar" aria-label="Navegación principal">
@@ -48,7 +53,6 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 </aside>
 
 <!-- ═══ MENÚ HAMBURGUESA (mobile) ════════════════════════════════════ -->
-<!-- MENÚ DESPLEGABLE -->
 <div id="nav-dropdown" role="menu" aria-label="Menú principal">
   <nav class="nav-dropdown-list">
     <a href="#" class="nav-dropdown-item" role="menuitem" data-action="nav-close-and-show" data-target="landing">🏠 Inicio</a>
@@ -114,7 +118,6 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     <p class="section-sub">Una guía simple y amigable para entender la inteligencia artificial desde cero. Sin tecnicismos, sin complicaciones.</p>
 
     <div class="modulos-grid">
-
       <div class="modulo-card">
         <div class="modulo-num">01</div>
         <div class="modulo-icon">🤖</div>
@@ -218,7 +221,6 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         <p>EduContext tiene más de 34 perfiles organizados por categorías. Cada uno con contenido pensado para vos.</p>
         <button class="btn-primary" data-action="show-profiles">Explorar perfiles →</button>
       </div>
-
     </div>
   </div>
 
@@ -447,7 +449,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 <script is:inline src={`${BASE}/js/app.js`}></script>
 <script is:inline src={`${BASE}/js/chat.js`}></script>
 
-<!-- ═══ CHATBOT DE CHATBASE ═══ -->
+<!-- ═══ INTEGRACIÓN OFICIAL CHATBASE (Widget Flotante) ═══ -->
 <script is:inline>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="Rlq3sLLiObTVKXYyiy383";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
